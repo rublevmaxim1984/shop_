@@ -1,0 +1,95 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ VTB Group. Do not reproduce without permission in writing.
+  ~ Copyright (c) 2018 VTB Group. All rights reserved.
+  -->
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="Rublev Maksim" id="1">
+    <preConditions onFail="MARK_RAN">
+        <not>
+            <tableExists tableName="${prefix}_product"/>
+        </not>
+    </preConditions>
+    <createTable tableName="${prefix}_product" remarks="Dictionary product">
+        <column autoIncrement="true" name="id" type="BIGSERIAL">
+            <constraints primaryKey="true" primaryKeyName="${prefix}_product_index"/>
+        </column>
+        <column name="name_product" type="varchar(255)" remarks="Name product"/>
+        <column name="photo" type="varchar(255)" remarks="Photo"/>
+        <column name="specifications" type="varchar(255)" remarks="Specifications"/>
+    </createTable>
+    </changeSet>
+
+    <changeSet author="Rublev Maksim" id="2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="${prefix}_customer"/>
+            </not>
+        </preConditions>
+        <createTable tableName="${prefix}_customer" remarks="Customer">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="${prefix}_customer_index"/>
+            </column>
+            <column name="name_customer" type="varchar(255)" remarks="Name customer"/>
+            <column name="email" type="varchar(255)" remarks="Email"/>
+            <column name="address" type="varchar(255)" remarks="Address"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Rublev Maksim" id="3">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="${prefix}_order"/>
+            </not>
+        </preConditions>
+        <createTable tableName="${prefix}_order" remarks="Order">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="${prefix}_order_index"/>
+            </column>
+            <column name="date_price" type="TIMESTAMP(6) WITHOUT TIME ZONE" remarks="Date order"/>
+            <column name="id_customer" type="int8" remarks="Id customer"/>
+            <column name="delivery" type="BOOLEAN" remarks="Delivery"/>
+            <column name="order_completion_date" type="TIMESTAMP(6) WITHOUT TIME ZONE" remarks="Date order"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Rublev Maksim" id="4">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="${prefix}_price_product"/>
+            </not>
+        </preConditions>
+        <createTable tableName="${prefix}_price_product" remarks="Price Product">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="${prefix}_pp_index"/>
+            </column>
+            <column name="id_product" type="int8" remarks="Id product"/>
+            <column name="date_price" type="TIMESTAMP(6) WITHOUT TIME ZONE" remarks="Date order"/>
+            <column name="price" type="numeric(19, 2)" remarks="Price"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Rublev Maksim" id="5">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="${prefix}_basket"/>
+            </not>
+        </preConditions>
+        <createTable tableName="${prefix}_basket" remarks="Basket">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="${prefix}_basket_index"/>
+            </column>
+            <column name="id_order" type="int8" remarks="Id order"/>
+            <column name="id_product" type="int8" remarks="Id product"/>
+            <column name="price" type="numeric(19, 2)" remarks="Price"/>
+            <column name="count" type="numeric(19, 2)" remarks="Count"/>
+            <column name="amount" type="numeric(19, 2)" remarks="Amount"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
