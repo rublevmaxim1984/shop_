@@ -2,6 +2,7 @@ package ru.shop.resource.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.shop.Dto.ProductDto;
@@ -10,7 +11,6 @@ import ru.shop.Utils.GenericPage;
 import ru.shop.resource.ProductResource;
 
 import javax.transaction.Transactional;
-import org.springframework.data.domain.Pageable;
 
 import static org.springframework.http.ResponseEntity.ok;
 
